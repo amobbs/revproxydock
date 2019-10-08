@@ -1,0 +1,24 @@
+version: '3'
+services:
+
+  
+  #HTTPD Service
+  webserver:
+    image: httpd:2.4
+    container_name: apacherevproxy
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:8000"
+      - "44:44"
+    volumes:
+      - ./www:/var/www/html
+      - ./conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    networks:
+      - app-network
+  
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
